@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand/Primary Colors - Botanical Greens */
+  --color-brand-50: #f2f9f5;
+  --color-brand-100: #e2f3e9;
+  --color-brand-200: #c6e7d5;
+  --color-brand-300: #9cd1b6;
+  --color-brand-400: #6cb691;
+  --color-brand-500: #479a73; /* Core brand green */
+  --color-brand-600: #377d5c;
+  --color-brand-700: #2e644b;
+  --color-brand-800: #26503e;
+  --color-brand-900: #204334;
+  --color-brand-950: #11251e;
+
+  /* Theme Font Family - Modern typography */
+  --font-sans: "Outfit", system-ui, -apple-system, sans-serif;
+}
+
+/* Custom global styles or micro-animations */
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased selection:bg-brand-500 selection:text-white;
+  }
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
