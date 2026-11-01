@@ -15,7 +15,7 @@ export default function Register() {
 
     try {
       await axios.post(
-        "http://localhost:5003/api/auth/register",
+        "https://onrender.com",
         {
           name,
           email,
