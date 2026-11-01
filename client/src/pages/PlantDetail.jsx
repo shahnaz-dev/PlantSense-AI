@@ -36,8 +36,7 @@ if (!token) {
         setError("");
 
         // Get the selected plant from MongoDB
-        const plantResponse = await axios.get(
-  `http://localhost:5003/api/scans/${id}`,
+        const plantResponse = await axios.get(`https://onrender.com{id}`,
   {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -54,7 +53,7 @@ if (!token) {
           setCareLoading(true);
 
           const careResponse = await axios.get(
-  `http://localhost:5003/api/plant-care/${encodeURIComponent(scan.name)}`,
+  `https://onrender.com{encodeURIComponent(scan.name)}`,
   {
     headers: {
       Authorization: `Bearer ${token}`,

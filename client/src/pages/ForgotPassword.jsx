@@ -12,7 +12,7 @@ export default function ForgotPassword() {
 
   try {
     const response = await axios.post(
-      "http://localhost:5003/api/auth/forgot-password",
+      "https://onrender.com",
       {
         email,
       }

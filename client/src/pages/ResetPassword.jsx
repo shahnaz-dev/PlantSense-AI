@@ -21,7 +21,7 @@ export default function ResetPassword() {
 
     try {
       const response = await axios.post(
-  `http://localhost:5003/api/auth/reset-password/${token}`,
+  `https://onrender.com{token}`,
   {
     password,
   }

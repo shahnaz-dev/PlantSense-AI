@@ -29,7 +29,7 @@ if (savedUser) {
       setLoading(true);
 
       const response = await axios.get(
-        "http://localhost:5003/api/scans",
+        "https://onrender.com",
         {
           headers: {
             Authorization: `Bearer ${token}`,
