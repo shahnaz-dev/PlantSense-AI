@@ -10,7 +10,7 @@ export default function Dashboard() {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
 
-  // 2. Automatically query your active port 5003 backend server
+  // 2. Automatically query your active port onrender backend server
  useEffect(() => {
   const token = localStorage.getItem("token");
 
