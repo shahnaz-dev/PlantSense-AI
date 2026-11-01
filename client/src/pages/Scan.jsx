@@ -36,7 +36,7 @@ const handleSimulateScan = async () => {
     formData.append("image", selectedFile);
 
     const response = await axios.post(
-      "http://localhost:5003/api/scan",
+      "https://onrender.com",
       formData,
       {
         headers: {
