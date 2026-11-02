@@ -34,13 +34,19 @@ const configuredOrigins = (process.env.CLIENT_URL || "")
 const allowedOrigins = [
   ...configuredOrigins,
   "https://client-ac7vqa94x-shahnaz-s-team.vercel.app",
+  "https://client-sooty-two-34.vercel.app",
+  "https://client-git-main-shahnaz-s-team.vercel.app",
   "http://localhost:5173",
   "http://localhost:5174",
 ];
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    const isVercelDeployment =
+      origin &&
+      /^https:\/\/client-[a-z0-9-]+-shahnaz-s-team\.vercel\.app$/.test(origin);
+
+    if (!origin || allowedOrigins.includes(origin) || isVercelDeployment) {
       callback(null, true);
     } else {
       console.error("Blocked CORS origin:", origin);
@@ -53,7 +59,6 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-// CORS must be registered before API routes
 app.use(cors(corsOptions));
 
 app.use(helmet());
