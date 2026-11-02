@@ -29,7 +29,7 @@ if (savedUser) {
       setLoading(true);
 
       const response = await axios.get(
-        "https://onrender.com",
+  "https://plantsense-ai-uiax.onrender.com/api/scans",
         {
           headers: {
             Authorization: `Bearer ${token}`,
