@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Sprout, ArrowRight } from "lucide-react";
 import axios from "axios";
 
+// Backend API URL
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Register() {
   const navigate = useNavigate();
 
@@ -13,9 +16,14 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    if (!API_URL) {
+      alert("API configuration is missing. Please check VITE_API_URL.");
+      return;
+    }
+
     try {
       await axios.post(
-        "https://onrender.com",
+        `${API_URL}/api/auth/register`,
         {
           name,
           email,
@@ -25,8 +33,13 @@ export default function Register() {
 
       alert("Registration successful! Please login.");
       navigate("/login");
+
     } catch (err) {
-      alert(err.response?.data?.message || "Registration failed");
+      console.error("Registration Error:", err.response?.data || err);
+
+      alert(
+        err.response?.data?.message || "Registration failed"
+      );
     }
   };
 
@@ -34,14 +47,18 @@ export default function Register() {
     <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-6">
       <div className="w-full max-w-md">
 
+        {/* PlantSense Logo */}
         <div className="flex items-center justify-center gap-2 mb-8">
           <Sprout className="w-8 h-8 text-brand-400" />
+
           <span className="text-2xl font-bold tracking-tight text-white">
             Plant<span className="text-brand-400">Sense</span>
           </span>
         </div>
 
+        {/* Registration Card */}
         <div className="glass p-8 rounded-3xl">
+
           <h2 className="text-xl font-bold text-white text-center mb-1">
             Create Account
           </h2>
@@ -52,6 +69,7 @@ export default function Register() {
 
           <form onSubmit={handleRegister} className="space-y-4">
 
+            {/* Full Name */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
                 Full Name
@@ -66,6 +84,7 @@ export default function Register() {
               />
             </div>
 
+            {/* Email */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
                 Email
@@ -80,6 +99,7 @@ export default function Register() {
               />
             </div>
 
+            {/* Password */}
             <div>
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
                 Password
@@ -94,6 +114,7 @@ export default function Register() {
               />
             </div>
 
+            {/* Sign Up Button */}
             <button
               type="submit"
               className="w-full py-3 bg-brand-500 text-white rounded-xl flex items-center justify-center gap-2"
@@ -104,8 +125,10 @@ export default function Register() {
 
           </form>
 
+          {/* Sign In Link */}
           <div className="mt-6 text-center text-sm text-slate-400">
             Already have an account?{" "}
+
             <Link to="/login" className="text-brand-400">
               Sign In
             </Link>

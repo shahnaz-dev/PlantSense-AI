@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Sprout, ArrowRight, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 
+// Backend API URL from client/.env
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Login() {
   const navigate = useNavigate();
 
@@ -13,14 +16,23 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!API_URL) {
+      alert("API configuration is missing. Please check VITE_API_URL.");
+      return;
+    }
+
     try {
       const res = await axios.post(
-        "https://onrender.com",
+        `${API_URL}/api/auth/login`,
         {
           email,
           password,
         }
       );
+
+      if (!res.data.token) {
+        throw new Error("Login response did not contain an authentication token.");
+      }
 
       localStorage.setItem("token", res.data.token);
 
@@ -30,9 +42,12 @@ export default function Login() {
       );
 
       navigate("/dashboard");
+
     } catch (err) {
+      console.error("Login Error:", err.response?.data || err);
+
       alert(
-        err.response?.data?.message || "Login failed"
+        err.response?.data?.message || err.message || "Login failed"
       );
     }
   };
@@ -115,6 +130,7 @@ export default function Login() {
 
               </div>
             </div>
+
             {/* Forgot Password */}
             <div className="flex justify-end">
               <Link
@@ -131,23 +147,22 @@ export default function Login() {
               className="w-full py-3 bg-brand-500 hover:bg-brand-600 text-white rounded-xl flex items-center justify-center gap-2 transition-colors"
             >
               Sign In
-
               <ArrowRight className="w-4 h-4" />
             </button>
 
           </form>
 
-{/* Sign Up */}
-<div className="mt-5 text-center text-sm text-slate-400">
-  Don't have an account?{" "}
+          {/* Sign Up */}
+          <div className="mt-5 text-center text-sm text-slate-400">
+            Don't have an account?{" "}
 
-  <Link
-    to="/register"
-    className="text-brand-400 hover:text-brand-300"
-  >
-    Sign Up
-  </Link>
-</div>
+            <Link
+              to="/register"
+              className="text-brand-400 hover:text-brand-300"
+            >
+              Sign Up
+            </Link>
+          </div>
 
         </div>
       </div>
